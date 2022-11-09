@@ -144,7 +144,7 @@ class _MobileVerificationScreenState extends State<MobileVerificationScreen> {
                           if( gOtp.toString() == _fieldOne.text.toString()){
                             //callOtpApi();
                             Navigator.pushReplacement(context, MaterialPageRoute(
-                                builder: (context) => HomePage()
+                                builder: (context) => HomePage('false')
                             ));
 
                           }
