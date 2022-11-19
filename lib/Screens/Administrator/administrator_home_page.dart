@@ -4,32 +4,44 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_house/Screens/RegistrationScreen/registration_page.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../Common/appbar.dart';
 
-class HomePage extends StatefulWidget {
-  String isRegistered;
-  HomePage(this.isRegistered);
-
+class AdministratorHomePage extends StatefulWidget {
 
   @override
   _HomePageState createState() => _HomePageState();
 
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<AdministratorHomePage> {
   List<String> carouselImageList = [
     'assets/images/b1.jpg',
     'assets/images/b2.png',
     'assets/images/b3.jpg',
     'assets/images/b4.jpg'
   ];
+  List<_SalesData> data = [
+    _SalesData('Jan', 35),
+    _SalesData('Feb', 28),
+    _SalesData('Mar', 34),
+    _SalesData('Apr', 32),
+    _SalesData('May', 40),
+    _SalesData('Jun', 60),
+    _SalesData('Jul', 25),
+    _SalesData('Aug', 35),
+    _SalesData('Sep', 42),
+    _SalesData('Oct', 50),
+    _SalesData('Nov', 30),
+    _SalesData('Dec', 48),
+  ];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getUserData(context);
+    //getUserData(context);
     //SchedulerBinding.instance.addPostFrameCallback((_) => OpenDialog(context));
     print('--------------------->');
   }
@@ -155,17 +167,17 @@ class _HomePageState extends State<HomePage> {
             )),
             SizedBox(height: 10,),
             GridView.count(
-              childAspectRatio: 1.1,
+              childAspectRatio: 1.4,
               crossAxisSpacing: 5,
               mainAxisSpacing: 5,
               primary: false,
               padding: const EdgeInsets.all(16),
-              crossAxisCount: 3,
+              crossAxisCount: 2,
               shrinkWrap: true,
               children: <Widget>[
                 InkWell(
                   onTap: (){
-                      widget.isRegistered=='false'?OpenDialog(context):OpenTrueDialog(context);
+                      //widget.isRegistered=='false'?OpenDialog(context):OpenTrueDialog(context);
                   },
                   child: Card(
                     shape: new RoundedRectangleBorder(
@@ -176,16 +188,15 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         // const SizedBox(height: 7),
-                        Image.asset(
-                          'assets/images/security.png',
-                          fit: BoxFit.fitWidth,
-                          height: 40,
-                          width: 40,
+                        const SizedBox(height: 10),
+                        Text(
+                          'Total',
+                          style: const TextStyle(fontSize: 15),
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'Security',
-                          style: const TextStyle(fontSize: 13),
+                          '1200',
+                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -193,7 +204,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 InkWell(
                   onTap: (){
-                    widget.isRegistered=='false'?OpenDialog(context):OpenTrueDialog(context);
+                    //widget.isRegistered=='false'?OpenDialog(context):OpenTrueDialog(context);
                   },
                   child: Card(
                     shape: new RoundedRectangleBorder(
@@ -204,16 +215,15 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         // const SizedBox(height: 7),
-                        Image.asset(
-                          'assets/images/management.png',
-                          fit: BoxFit.fitWidth,
-                          height: 40,
-                          width: 40,
+                        const SizedBox(height: 10),
+                        Text(
+                          'Land lord',
+                          style: const TextStyle(fontSize: 15),
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'Management',
-                          style: const TextStyle(fontSize: 13),
+                          '300',
+                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -221,7 +231,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 InkWell(
                   onTap: (){
-                    widget.isRegistered=='false'?OpenDialog(context):OpenTrueDialog(context);
+                    //widget.isRegistered=='false'?OpenDialog(context):OpenTrueDialog(context);
                   },
                   child: Card(
                     shape: new RoundedRectangleBorder(
@@ -232,16 +242,16 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         // const SizedBox(height: 7),
-                        Image.asset(
-                          'assets/images/maintanence.png',
-                          fit: BoxFit.fitWidth,
-                          height: 40,
-                          width: 40,
+
+                        const SizedBox(height: 10),
+                        Text(
+                          'Family',
+                          style: const TextStyle(fontSize: 15),
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'Maintenance',
-                          style: const TextStyle(fontSize: 13),
+                          '400',
+                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -249,7 +259,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 InkWell(
                   onTap: (){
-                    widget.isRegistered=='false'?OpenDialog(context):OpenTrueDialog(context);
+                    //widget.isRegistered=='false'?OpenDialog(context):OpenTrueDialog(context);
                   },
                   child: Card(
                     shape: new RoundedRectangleBorder(
@@ -260,16 +270,15 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         // const SizedBox(height: 7),
-                        Image.asset(
-                          'assets/images/ecommerse.png',
-                          fit: BoxFit.fitWidth,
-                          height: 40,
-                          width: 40,
+                        const SizedBox(height: 10),
+                        Text(
+                          'Sublet',
+                          style: const TextStyle(fontSize: 15),
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'E-commerce',
-                          style: const TextStyle(fontSize: 13),
+                          '300',
+                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -277,7 +286,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 InkWell(
                   onTap: (){
-                    widget.isRegistered=='false'?OpenDialog(context):OpenTrueDialog(context);
+                    //widget.isRegistered=='false'?OpenDialog(context):OpenTrueDialog(context);
                   },
                   child: Card(
                     shape: new RoundedRectangleBorder(
@@ -288,16 +297,15 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         // const SizedBox(height: 7),
-                        Image.asset(
-                          'assets/images/maintanence.png',
-                          fit: BoxFit.fitWidth,
-                          height: 40,
-                          width: 40,
+                        const SizedBox(height: 10),
+                        Text(
+                          'Mess',
+                          style: const TextStyle(fontSize: 15),
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'Asset',
-                          style: const TextStyle(fontSize: 13),
+                          '200',
+                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -305,91 +313,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 InkWell(
                   onTap: (){
-                    widget.isRegistered=='false'?OpenDialog(context):OpenTrueDialog(context);
-                  },
-                  child: Card(
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // const SizedBox(height: 7),
-                        Image.asset(
-                          'assets/images/management.png',
-                          fit: BoxFit.fitWidth,
-                          height: 40,
-                          width: 40,
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          'Buy & Sell',
-                          style: const TextStyle(fontSize: 13),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                InkWell(
-                  onTap: (){
-                    widget.isRegistered=='false'?OpenDialog(context):OpenTrueDialog(context);
-                  },
-                  child: Card(
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // const SizedBox(height: 7),
-                        Image.asset(
-                          'assets/images/security.png',
-                          fit: BoxFit.fitWidth,
-                          height: 40,
-                          width: 40,
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          'Security',
-                          style: const TextStyle(fontSize: 13),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                InkWell(
-                  onTap: (){
-                    widget.isRegistered=='false'?OpenDialog(context):OpenTrueDialog(context);
-                  },
-                  child: Card(
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // const SizedBox(height: 7),
-                        Image.asset(
-                          'assets/images/security.png',
-                          fit: BoxFit.fitWidth,
-                          height: 40,
-                          width: 40,
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          'Security',
-                          style: const TextStyle(fontSize: 13),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                InkWell(
-                  onTap: (){
-                    widget.isRegistered=='false'?OpenDialog(context):OpenTrueDialog(context);
+                    //widget.isRegistered=='false'?OpenDialog(context):OpenTrueDialog(context);
                   },
                   child: Card(
                     shape: new RoundedRectangleBorder(
@@ -420,47 +344,23 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             const SizedBox(height: 8),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Best Deals ⚡", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
-                  Text("View all", style: TextStyle(fontSize: 18, color: Colors.blueAccent),),
-                ],
-              ),
-            ),
-            const SizedBox(height: 8),
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height/4.5,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 15,
-                  itemBuilder: (BuildContext context, int index) => Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width/3,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: Image.asset("assets/images/otp.png", height: 60, width: MediaQuery.of(context).size.width/4, fit: BoxFit.fill,),
-                            ),
-                            SizedBox(height: 8,),
-                            Text('Dummy Deal'),
-                            Text('Dummy Deal'),
-                            Text('⭐ ⭐ ⭐ ⭐ ⭐'),
-                          ],
-                        )),
-                  ),
-                ),
-              ),
-            ),
+            SfCartesianChart(
+                primaryXAxis: CategoryAxis(),
+                // Chart title
+                title: ChartTitle(text: 'Yearly User analysis'),
+                // Enable legend
+                legend: Legend(isVisible: true, position: LegendPosition.top),
+                // Enable tooltip
+                tooltipBehavior: TooltipBehavior(enable: true),
+                series: <ChartSeries<_SalesData, String>>[
+                  LineSeries<_SalesData, String>(
+                      dataSource: data,
+                      xValueMapper: (_SalesData sales, _) => sales.year,
+                      yValueMapper: (_SalesData sales, _) => sales.sales,
+                      name: 'User',
+                      // Enable data label
+                      dataLabelSettings: DataLabelSettings(isVisible: true))
+                ]),
           ],
         ),
       ),
@@ -670,12 +570,19 @@ class _HomePageState extends State<HomePage> {
         });
   }
 
-  void getUserData(BuildContext context){
-    if(widget.isRegistered == 'false'){
-      SchedulerBinding.instance.addPostFrameCallback((_) => OpenDialog(context));
-    }
-    setState(() {
+  // void getUserData(BuildContext context){
+  //   if(widget.isRegistered == 'false'){
+  //     SchedulerBinding.instance.addPostFrameCallback((_) => OpenDialog(context));
+  //   }
+  //   setState(() {
+  //
+  //   });
+  // }
+}
 
-    });
-  }
+class _SalesData {
+  _SalesData(this.year, this.sales);
+
+  final String year;
+  final double sales;
 }

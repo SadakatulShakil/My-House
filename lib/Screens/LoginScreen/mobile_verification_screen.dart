@@ -4,14 +4,16 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_house/Screens/Administrator/administrator_home_page.dart';
 import 'package:my_house/Screens/HomePage/home_page.dart';
 
 import '../../Api/NetworkCall.dart';
 
 class MobileVerificationScreen extends StatefulWidget {
+  String role;
   String getOtp;
   String number;
-  MobileVerificationScreen(this.getOtp, this.number);
+  MobileVerificationScreen(this.role, this.getOtp, this.number);
 
   @override
   _MobileVerificationScreenState createState() =>
@@ -143,9 +145,15 @@ class _MobileVerificationScreenState extends State<MobileVerificationScreen> {
                           print('gOtp: '+gOtp.toString()+'/////'+'GetOtp: '+ _fieldOne.text.toString());
                           if( gOtp.toString() == _fieldOne.text.toString()){
                             //callOtpApi();
-                            Navigator.pushReplacement(context, MaterialPageRoute(
-                                builder: (context) => HomePage('false')
-                            ));
+                            if(widget.role == 'user'){
+                              Navigator.pushReplacement(context, MaterialPageRoute(
+                                  builder: (context) => HomePage('false')
+                              ));
+                            }else{
+                              Navigator.pushReplacement(context, MaterialPageRoute(
+                                  builder: (context) => AdministratorHomePage()
+                              ));
+                            }
 
                           }
                       },

@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_house/Common/care_taker.dart';
 import 'package:my_house/Common/family_member.dart';
+import 'package:my_house/Common/flat_info.dart';
 import 'package:my_house/Common/house_keeper.dart';
 import 'package:provider/provider.dart';
 
@@ -79,6 +80,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   HouseKeeper houseKeeper = new HouseKeeper();
   List<CareTaker> careTakerList = [];
   CareTaker careTaker = new CareTaker();
+  List<FlatInformation> flatInformationList = [];
+  FlatInformation flatInformation = new FlatInformation();
 
   // List<ShopTypeModel> shopTypeList = [];
   // List<StateModel> stateList = [];
@@ -89,6 +92,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   File? shopBannerImage;
 
   bool isFormSubmitting = false;
+  bool isPreviousCode = false;
 
   void userForm() async {
     FocusScope.of(context).requestFocus(FocusNode());
@@ -308,7 +312,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String roleValue ='', subRoleValue='', maritalValue ='';
   String? _selectedDivision, _selectedDistrict, _selectedThana, _selectedWord;
   int? role_val, subRole_val, marital_val;
-  int numberOfFamily = 1, numberOfHouseKeeper = 1, numberOfCareTaker = 1;
+  int numberOfFamily = 1, numberOfHouseKeeper = 1, numberOfCareTaker = 1, numberOfFlat = 1;
   DateTime? startdate;
   String initialDateText = 'Select birth date';
   @override
@@ -2285,117 +2289,411 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              Row(
-                                children: const [
-                                  Text(
-                                    "Additional Information",
-                                    style: TextStyle(fontSize: 18),
+                              Visibility(
+                                  visible: role_val == 1?true:false,
+                                child: Container(
+                                  child: Column(
+                                      children: [
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "Additional Information",
+                                            style: TextStyle(fontSize: 18),
+                                          ),
+                                        ),
+                                        Divider(),
+                                        const SizedBox(height: 12),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Previous House owner.",
+                                              style: TextStyle(fontSize: 18),
+                                            ),
+                                            Container(
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 12.0),
+                                                    child: SizedBox(
+                                                      width: 15,
+                                                      height: 15,
+                                                      child: Material(
+                                                        child: Checkbox(
+                                                          value: isPreviousCode,
+                                                          onChanged: (value) {
+                                                            setState(() {
+                                                              isPreviousCode = value ?? false;
+                                                            });
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(12.0),
+                                                    child: Text(
+                                                      "If apply",
+                                                      style: TextStyle(fontSize: 18),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 5),
+                                        TextField(
+                                          // obscureText: true,
+                                          // obscuringCharacter: '*',
+                                          //controller: firstNameController,
+                                          autofocus: false,
+                                          cursorColor: Colors.black45,
+                                          decoration: const InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            isDense: true,
+                                            prefixIcon: Icon(
+                                              Icons.person,
+                                              color: Colors.black45,
+                                            ),
+                                            labelText: "Owner name",
+                                            hintText: 'Name of the owner',
+                                          ),
+                                          // The validator receives the text that the user has entered.
+                                          // validator: (value) {
+                                          //   if (value == null || value.isEmpty) {
+                                          //     return 'First name is required';
+                                          //   } else if (value.length > 25) {
+                                          //     return 'Maximum length is 25.';
+                                          //   }
+                                          //   return null;
+                                          // },
+                                        ),
+                                        const SizedBox(height: 10),
+                                        TextField(
+                                          //controller: lastNameController,
+                                          autofocus: false,
+                                          cursorColor: Colors.black45,
+                                          decoration: const InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            isDense: true,
+                                            prefixIcon: Icon(
+                                              Icons.person,
+                                              color: Colors.black45,
+                                            ),
+                                            labelText: "Referal code",
+                                            hintText: 'Owner referal code',
+                                          ),
+                                          // The validator receives the text that the user has entered.
+                                          // validator: (value) {
+                                          //   if (value == null || value.isEmpty) {
+                                          //     return 'Last name is required';
+                                          //   } else if (value.length > 25) {
+                                          //     return 'Maximum length is 25.';
+                                          //   }
+                                          //   return null;
+                                          // },
+                                        ),
+                                        const SizedBox(height: 10),
+                                        TextField(
+                                          //controller: lastNameController,
+                                          autofocus: false,
+                                          cursorColor: Colors.black45,
+                                          decoration: const InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            isDense: true,
+                                            prefixIcon: Icon(
+                                              Icons.person,
+                                              color: Colors.black45,
+                                            ),
+                                            labelText: "Contact",
+                                            hintText: 'Owner mobile name',
+                                          ),
+                                          // The validator receives the text that the user has entered.
+                                          // validator: (value) {
+                                          //   if (value == null || value.isEmpty) {
+                                          //     return 'Last name is required';
+                                          //   } else if (value.length > 25) {
+                                          //     return 'Maximum length is 25.';
+                                          //   }
+                                          //   return null;
+                                          // },
+                                        ),
+                                        const SizedBox(height: 5),
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "New House owner",
+                                            style: TextStyle(fontSize: 18),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        TextField(
+                                          // obscureText: true,
+                                          // obscuringCharacter: '*',
+                                          //controller: firstNameController,
+                                          autofocus: false,
+                                          cursorColor: Colors.black45,
+                                          decoration: const InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            isDense: true,
+                                            prefixIcon: Icon(
+                                              Icons.person,
+                                              color: Colors.black45,
+                                            ),
+                                            labelText: "Owner name",
+                                            hintText: 'Name of the owner',
+                                          ),
+                                          // The validator receives the text that the user has entered.
+                                          // validator: (value) {
+                                          //   if (value == null || value.isEmpty) {
+                                          //     return 'First name is required';
+                                          //   } else if (value.length > 25) {
+                                          //     return 'Maximum length is 25.';
+                                          //   }
+                                          //   return null;
+                                          // },
+                                        ),
+                                        const SizedBox(height: 10),
+                                        TextField(
+                                          //controller: lastNameController,
+                                          autofocus: false,
+                                          cursorColor: Colors.black45,
+                                          decoration: const InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            isDense: true,
+                                            prefixIcon: Icon(
+                                              Icons.person,
+                                              color: Colors.black45,
+                                            ),
+                                            labelText: "Referal code",
+                                            hintText: 'Owner referal code',
+                                          ),
+                                          // The validator receives the text that the user has entered.
+                                          // validator: (value) {
+                                          //   if (value == null || value.isEmpty) {
+                                          //     return 'Last name is required';
+                                          //   } else if (value.length > 25) {
+                                          //     return 'Maximum length is 25.';
+                                          //   }
+                                          //   return null;
+                                          // },
+                                        ),
+                                        const SizedBox(height: 10),
+                                        TextField(
+                                          //controller: lastNameController,
+                                          autofocus: false,
+                                          cursorColor: Colors.black45,
+                                          decoration: const InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            isDense: true,
+                                            prefixIcon: Icon(
+                                              Icons.person,
+                                              color: Colors.black45,
+                                            ),
+                                            labelText: "Contact",
+                                            hintText: 'Owner mobile name',
+                                          ),
+                                          // The validator receives the text that the user has entered.
+                                          // validator: (value) {
+                                          //   if (value == null || value.isEmpty) {
+                                          //     return 'Last name is required';
+                                          //   } else if (value.length > 25) {
+                                          //     return 'Maximum length is 25.';
+                                          //   }
+                                          //   return null;
+                                          // },
+                                        ),
+                                        const SizedBox(height: 20),
+                                      ],
                                   ),
-                                ],
-                              ),
-                              const SizedBox(height: 12),
-                              TextField(
-                                // obscureText: true,
-                                // obscuringCharacter: '*',
-                                //controller: firstNameController,
-                                autofocus: false,
-                                cursorColor: Colors.black45,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  isDense: true,
-                                  prefixIcon: Icon(
-                                    Icons.person,
-                                    color: Colors.black45,
-                                  ),
-                                  labelText: "First Name",
-                                  hintText: 'Name...',
                                 ),
-                                // The validator receives the text that the user has entered.
-                                // validator: (value) {
-                                //   if (value == null || value.isEmpty) {
-                                //     return 'First name is required';
-                                //   } else if (value.length > 25) {
-                                //     return 'Maximum length is 25.';
-                                //   }
-                                //   return null;
-                                // },
                               ),
-                              const SizedBox(height: 10),
-                              TextField(
-                                //controller: lastNameController,
-                                autofocus: false,
-                                cursorColor: Colors.black45,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  isDense: true,
-                                  prefixIcon: Icon(
-                                    Icons.person,
-                                    color: Colors.black45,
+                              Visibility(
+                                visible: role_val == 0?true:false,
+                                child: Container(
+                                  child: Column(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          "Flat Information",
+                                          style: TextStyle(fontSize: 18),
+                                        ),
+                                      ),
+                                      Divider(),
+                                      Form(
+                                          child: Column(
+                                            children: [
+                                              for(int f = 1 ; f <= numberOfFlat ; f++)
+                                                Container(
+                                                    child:Column(
+                                                      children: [
+                                                        Align(
+                                                          alignment: Alignment.centerLeft,
+                                                          child: Text(
+                                                            "SL: "+f.toString(),
+                                                            style: TextStyle(fontSize: 15),
+                                                          ),
+                                                        ),
+                                                        TextField(
+                                                          onChanged: (val)=>flatInformation.flatName = val,
+                                                          //controller: lastNameController,
+                                                          autofocus: false,
+                                                          cursorColor: Colors.black45,
+                                                          decoration: const InputDecoration(
+                                                            border: OutlineInputBorder(),
+                                                            isDense: true,
+                                                            prefixIcon: Icon(
+                                                              Icons.person,
+                                                              color: Colors.black45,
+                                                            ),
+                                                            labelText: "Name",
+                                                            hintText: 'Flat name',
+                                                          ),
+                                                          // The validator receives the text that the user has entered.
+                                                          // validator: (value) {
+                                                          //   if (value == null || value.isEmpty) {
+                                                          //     return 'Last name is required';
+                                                          //   } else if (value.length > 25) {
+                                                          //     return 'Maximum length is 25.';
+                                                          //   }
+                                                          //   return null;
+                                                          // },
+                                                        ),
+                                                        const SizedBox(height: 10),
+                                                        TextField(
+                                                          onChanged: (val)=>flatInformation.renterReferalCode = val,
+                                                          //controller: lastNameController,
+                                                          autofocus: false,
+                                                          cursorColor: Colors.black45,
+                                                          decoration: const InputDecoration(
+                                                            border: OutlineInputBorder(),
+                                                            isDense: true,
+                                                            prefixIcon: Icon(
+                                                              Icons.person,
+                                                              color: Colors.black45,
+                                                            ),
+                                                            labelText: "Referal code",
+                                                            hintText: 'Renter referal code',
+                                                          ),
+                                                          // The validator receives the text that the user has entered.
+                                                          // validator: (value) {
+                                                          //   if (value == null || value.isEmpty) {
+                                                          //     return 'Last name is required';
+                                                          //   } else if (value.length > 25) {
+                                                          //     return 'Maximum length is 25.';
+                                                          //   }
+                                                          //   return null;
+                                                          // },
+                                                        ),
+                                                        const SizedBox(height: 10),
+                                                        TextField(
+                                                          onChanged: (val)=>flatInformation.contact = val,
+                                                          //controller: lastNameController,
+                                                          autofocus: false,
+                                                          cursorColor: Colors.black45,
+                                                          decoration: const InputDecoration(
+                                                            border: OutlineInputBorder(),
+                                                            isDense: true,
+                                                            prefixIcon: Icon(
+                                                              Icons.person,
+                                                              color: Colors.black45,
+                                                            ),
+                                                            labelText: "Contact",
+                                                            hintText: 'Renter contact info',
+                                                          ),
+                                                          // The validator receives the text that the user has entered.
+                                                          // validator: (value) {
+                                                          //   if (value == null || value.isEmpty) {
+                                                          //     return 'Last name is required';
+                                                          //   } else if (value.length > 25) {
+                                                          //     return 'Maximum length is 25.';
+                                                          //   }
+                                                          //   return null;
+                                                          // },
+                                                        ),
+                                                      ],
+                                                    )
+                                                )
+                                            ],
+                                          )),
+                                      Row(
+                                        children: [
+                                          Visibility(
+                                            visible: numberOfFlat == 1? false:true,
+                                            child: Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Padding(
+                                                padding: EdgeInsets.only(left: 5.0),
+                                                child: InkWell(
+                                                  onTap: (){
+                                                    numberOfFlat !=1?numberOfFlat--:numberOfFlat =1;
+                                                    setState(() {
+
+                                                    });
+                                                    //callDoctorLoginApi(mobileController.text, passwordController.text);
+                                                    //Navigator.push(context, MaterialPageRoute(builder: (context) => MobileVerificationScreen(generateOtp, mobileController.text.toString())));
+                                                  },
+                                                  child: Card(
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(12),
+                                                    ),
+                                                    child: Container(
+                                                      width: 100,
+                                                      height: 30,
+                                                      decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(12),
+                                                          color: Colors.redAccent
+                                                      ),
+                                                      child: Center(
+                                                        child: Text("Remove", style: GoogleFonts.comfortaa(color: Colors.white,fontSize: 10),),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Padding(
+                                              padding: EdgeInsets.only(left: 5.0),
+                                              child: InkWell(
+                                                onTap: (){
+                                                  numberOfCareTaker++;
+                                                  setState(() {
+                                                    _addcollections3(careTaker);
+                                                  });
+                                                  //callDoctorLoginApi(mobileController.text, passwordController.text);
+                                                  //Navigator.push(context, MaterialPageRoute(builder: (context) => MobileVerificationScreen(generateOtp, mobileController.text.toString())));
+                                                },
+                                                child: Card(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(12),
+                                                  ),
+                                                  child: Container(
+                                                    width: 100,
+                                                    height: 30,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(12),
+                                                        color: const Color(0xFF01A9B8)
+                                                    ),
+                                                    child: Center(
+                                                      child: Text("Add more", style: GoogleFonts.comfortaa(color: Colors.white,fontSize: 10),),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 20),
+                                    ],
                                   ),
-                                  labelText: "Last Name",
-                                  hintText: 'Name...',
                                 ),
-                                // The validator receives the text that the user has entered.
-                                // validator: (value) {
-                                //   if (value == null || value.isEmpty) {
-                                //     return 'Last name is required';
-                                //   } else if (value.length > 25) {
-                                //     return 'Maximum length is 25.';
-                                //   }
-                                //   return null;
-                                // },
-                              ),
-                              const SizedBox(height: 10),
-                              TextField(
-                                //controller: lastNameController,
-                                autofocus: false,
-                                cursorColor: Colors.black45,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  isDense: true,
-                                  prefixIcon: Icon(
-                                    Icons.person,
-                                    color: Colors.black45,
-                                  ),
-                                  labelText: "Last Name",
-                                  hintText: 'Name...',
-                                ),
-                                // The validator receives the text that the user has entered.
-                                // validator: (value) {
-                                //   if (value == null || value.isEmpty) {
-                                //     return 'Last name is required';
-                                //   } else if (value.length > 25) {
-                                //     return 'Maximum length is 25.';
-                                //   }
-                                //   return null;
-                                // },
-                              ),
-                              const SizedBox(height: 10),
-                              TextField(
-                                //controller: lastNameController,
-                                autofocus: false,
-                                cursorColor: Colors.black45,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  isDense: true,
-                                  prefixIcon: Icon(
-                                    Icons.person,
-                                    color: Colors.black45,
-                                  ),
-                                  labelText: "Last Name",
-                                  hintText: 'Name...',
-                                ),
-                                // The validator receives the text that the user has entered.
-                                // validator: (value) {
-                                //   if (value == null || value.isEmpty) {
-                                //     return 'Last name is required';
-                                //   } else if (value.length > 25) {
-                                //     return 'Maximum length is 25.';
-                                //   }
-                                //   return null;
-                                // },
-                              ),
-                              const SizedBox(height: 20),
+                              )
 
                             ],
                           ),
