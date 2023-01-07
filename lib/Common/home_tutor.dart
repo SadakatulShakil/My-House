@@ -1,4 +1,4 @@
-class CareTaker {
+class HomeTutor {
   String? name;
   String? nid;
   String? age;
@@ -6,7 +6,7 @@ class CareTaker {
   String? area;
   String? contact;
 
-  CareTaker({
+  HomeTutor({
     this.name,
     this.nid,
     this.age,
@@ -15,7 +15,7 @@ class CareTaker {
     this.contact,
   });
 
-  factory CareTaker.fromJson(Map<String, dynamic> json) => new CareTaker(
+  factory HomeTutor.fromJson(Map<String, dynamic> json) => new HomeTutor(
     name: json["name"],
     nid: json["nid"],
     age: json["age"],

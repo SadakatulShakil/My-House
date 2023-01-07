@@ -12,6 +12,8 @@ import 'package:my_house/Common/flat_info.dart';
 import 'package:my_house/Common/house_keeper.dart';
 import 'package:provider/provider.dart';
 
+import '../../Common/driver_info.dart';
+import '../../Common/home_tutor.dart';
 import '../../language/Languages.dart';
 import '../HomePage/home_page.dart';
 // import 'package:provider/provider.dart';
@@ -28,6 +30,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _secondFormKey = GlobalKey<FormState>();
   final _thirdFormKey = GlobalKey<FormState>();
   final _forthFormKey = GlobalKey<FormState>();
+  final _fifthFormKey = GlobalKey<FormState>();
+  final _sixthFormKey = GlobalKey<FormState>();
 
   var firstNameController = TextEditingController(text: '');
   var lastNameController = TextEditingController(text: '');
@@ -75,11 +79,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
     '39',
   ];
   List<FamilyMember> familyMemberList = [];
-  FamilyMember user = new FamilyMember();
+  FamilyMember familyUser = new FamilyMember();
   List<HouseKeeper> houseKeeperList = [];
   HouseKeeper houseKeeper = new HouseKeeper();
   List<CareTaker> careTakerList = [];
   CareTaker careTaker = new CareTaker();
+  List<HomeTutor> homeTutorList = [];
+  HomeTutor homeTutor = new HomeTutor();
+  List<Driver> driverList = [];
+  Driver driver = new Driver();
   List<FlatInformation> flatInformationList = [];
   FlatInformation flatInformation = new FlatInformation();
 
@@ -243,6 +251,95 @@ class _RegisterScreenState extends State<RegisterScreen> {
     setState(() => isFormSubmitting = false);
   }
 
+  void DriverForm() async {
+    FocusScope.of(context).requestFocus(FocusNode());
+    setState(() => isFormSubmitting = true);
+
+    if (!_fifthFormKey.currentState!.validate()) {
+      Fluttertoast.showToast(msg: 'Please provide all information.');
+      setState(() => isFormSubmitting = false);
+      return;
+    }
+
+    // if (stateController.text == '') {
+    //   Fluttertoast.showToast(msg: 'State is required!');
+    //   setState(() => isFormSubmitting = false);
+    //   return;
+    // }
+
+    // if (cityController.text == '') {
+    //   Fluttertoast.showToast(msg: 'City is required!');
+    //   setState(() => isFormSubmitting = false);
+    //   return;
+    // }
+    //
+    // if (townController.text == '') {
+    //   Fluttertoast.showToast(msg: 'Town is required!');
+    //   setState(() => isFormSubmitting = false);
+    //   return;
+    // }
+    //
+    // if (shopLogoImage == null) {
+    //   Fluttertoast.showToast(msg: 'Shop logo is required!');
+    //   setState(() => isFormSubmitting = false);
+    //   return;
+    // }
+    //
+    // if (shopBannerImage == null) {
+    //   Fluttertoast.showToast(msg: 'Shop banner is required!');
+    //   setState(() => isFormSubmitting = false);
+    //   return;
+    // }
+
+    setState(() => currentStep = 5);
+
+    setState(() => isFormSubmitting = false);
+  }
+  void HomeTutorForm() async {
+    FocusScope.of(context).requestFocus(FocusNode());
+    setState(() => isFormSubmitting = true);
+
+    if (!_sixthFormKey.currentState!.validate()) {
+      Fluttertoast.showToast(msg: 'Please provide all information.');
+      setState(() => isFormSubmitting = false);
+      return;
+    }
+
+    // if (stateController.text == '') {
+    //   Fluttertoast.showToast(msg: 'State is required!');
+    //   setState(() => isFormSubmitting = false);
+    //   return;
+    // }
+
+    // if (cityController.text == '') {
+    //   Fluttertoast.showToast(msg: 'City is required!');
+    //   setState(() => isFormSubmitting = false);
+    //   return;
+    // }
+    //
+    // if (townController.text == '') {
+    //   Fluttertoast.showToast(msg: 'Town is required!');
+    //   setState(() => isFormSubmitting = false);
+    //   return;
+    // }
+    //
+    // if (shopLogoImage == null) {
+    //   Fluttertoast.showToast(msg: 'Shop logo is required!');
+    //   setState(() => isFormSubmitting = false);
+    //   return;
+    // }
+    //
+    // if (shopBannerImage == null) {
+    //   Fluttertoast.showToast(msg: 'Shop banner is required!');
+    //   setState(() => isFormSubmitting = false);
+    //   return;
+    // }
+
+    setState(() => currentStep = 6);
+
+    setState(() => isFormSubmitting = false);
+  }
+
   void submitForm() async {
     setState(() => isFormSubmitting = true);
     if (termsAndConditions == false) {
@@ -309,10 +406,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool hideShowPassword = true;
   bool hideShowPassword2 = true;
   int currentStep = 0;
-  String roleValue ='', subRoleValue='', maritalValue ='';
+  String roleValue ='', subRoleValue='', maritalValue ='', nationalityValue = '', familyNatonalityValue = '';
   String? _selectedDivision, _selectedDistrict, _selectedThana, _selectedWord;
-  int? role_val, subRole_val, marital_val;
-  int numberOfFamily = 1, numberOfHouseKeeper = 1, numberOfCareTaker = 1, numberOfFlat = 1;
+  int? role_val, subRole_val, marital_val, nationality_val, familyNatonality_val;
+  int numberOfFamily = 1, numberOfHouseKeeper = 1, numberOfCareTaker = 1, numberOfFlat = 1, numberOfDriver = 1;
   DateTime? startdate;
   String initialDateText = 'Select birth date';
   @override
@@ -325,9 +422,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void initState() {
     setState(() {
-      // patient_val = 0;
-      // sex_val = -1;
-      // incentive_val = -1;
+      role_val = 0;
+      nationality_val = 0;
+      familyNatonality_val = 0;
+
     });
     super.initState();
     startdate = DateTime.now();
@@ -405,7 +503,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       child: const Text("NEXT"),
                                       onPressed: (){
                                         familyMemberForm();
-                                        _addcollections(user);
+                                        _addcollections(familyUser);
                                         },
                                       splashColor: Colors.greenAccent,
                                     ),
@@ -521,6 +619,110 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         );
                       }
                       else if (currentStep == 4){
+                        return Column(
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: MaterialButton(
+                                      elevation: 0,
+                                      height: 50.0,
+                                      minWidth: double.infinity,
+                                      color: Theme.of(context).primaryColor,
+                                      textColor:
+                                      Theme.of(context).backgroundColor,
+                                      child: const Text("BACK"),
+                                      splashColor: Colors.greenAccent,
+                                      onPressed: details.onStepCancel,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: (isFormSubmitting
+                                      ? const Center(
+                                      child: CircularProgressIndicator(
+                                          valueColor:
+                                          AlwaysStoppedAnimation<Color>(
+                                              Colors.red)))
+                                      : Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: MaterialButton(
+                                      elevation: 0,
+                                      height: 50.0,
+                                      minWidth: double.infinity,
+                                      color: Colors.green,
+                                      textColor: Theme.of(context)
+                                          .backgroundColor,
+                                      child: const Text("NEXT"),
+                                      onPressed: () {
+                                        DriverForm();
+                                        _addcollections4(careTaker);
+                                      },
+                                      splashColor: Colors.greenAccent,
+                                    ),
+                                  )),
+                                )
+                              ],
+                            ),
+                          ],
+                        );
+                      }
+                      else if (currentStep == 5){
+                        return Column(
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: MaterialButton(
+                                      elevation: 0,
+                                      height: 50.0,
+                                      minWidth: double.infinity,
+                                      color: Theme.of(context).primaryColor,
+                                      textColor:
+                                      Theme.of(context).backgroundColor,
+                                      child: const Text("BACK"),
+                                      splashColor: Colors.greenAccent,
+                                      onPressed: details.onStepCancel,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: (isFormSubmitting
+                                      ? const Center(
+                                      child: CircularProgressIndicator(
+                                          valueColor:
+                                          AlwaysStoppedAnimation<Color>(
+                                              Colors.red)))
+                                      : Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: MaterialButton(
+                                      elevation: 0,
+                                      height: 50.0,
+                                      minWidth: double.infinity,
+                                      color: Colors.green,
+                                      textColor: Theme.of(context)
+                                          .backgroundColor,
+                                      child: const Text("NEXT"),
+                                      onPressed: () {
+                                        HomeTutorForm();
+                                        _addcollections5(homeTutor);
+                                      },
+                                      splashColor: Colors.greenAccent,
+                                    ),
+                                  )),
+                                )
+                              ],
+                            ),
+                          ],
+                        );
+                      }
+                      else if (currentStep == 6){
                         return Column(
                           children: <Widget>[
                             Row(
@@ -1123,8 +1325,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 Icons.person,
                                                 color: Colors.black45,
                                               ),
-                                              labelText: "House no",
-                                              hintText: 'house no',
+                                              labelText: "Road no",
+                                              hintText: 'road no',
                                             ),
                                             // The validator receives the text that the user has entered.
                                             // validator: (value) {
@@ -1149,6 +1351,381 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         padding: const EdgeInsets.only(right: 5.0),
                                         child: TextField(
                                         //  controller: lastNameController,
+                                          autofocus: false,
+                                          cursorColor: Colors.black45,
+                                          decoration: const InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            isDense: true,
+                                            prefixIcon: Icon(
+                                              Icons.person,
+                                              color: Colors.black45,
+                                            ),
+                                            labelText: "Block no",
+                                            hintText: 'Block no',
+                                          ),
+                                          // The validator receives the text that the user has entered.
+                                          // validator: (value) {
+                                          //   if (value == null || value.isEmpty) {
+                                          //     return 'Last name is required';
+                                          //   } else if (value.length > 25) {
+                                          //     return 'Maximum length is 25.';
+                                          //   }
+                                          //   return null;
+                                          // },
+                                        ),
+                                      ),
+                                    ),
+                                    Flexible(
+                                      flex: 1,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 5.0),
+                                        child: TextField(
+                                          //controller: lastNameController,
+                                          autofocus: false,
+                                          cursorColor: Colors.black45,
+                                          decoration: const InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            isDense: true,
+                                            prefixIcon: Icon(
+                                              Icons.person,
+                                              color: Colors.black45,
+                                            ),
+                                            labelText: "Flat no",
+                                            hintText: 'Flat no',
+                                          ),
+                                          // The validator receives the text that the user has entered.
+                                          // validator: (value) {
+                                          //   if (value == null || value.isEmpty) {
+                                          //     return 'Last name is required';
+                                          //   } else if (value.length > 25) {
+                                          //     return 'Maximum length is 25.';
+                                          //   }
+                                          //   return null;
+                                          // },
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+
+                                Divider(),
+
+                                SizedBox(height: 10),
+                                Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text("your parmanent address ?", style: GoogleFonts.comfortaa(fontSize: 15),)),
+                                Divider(),
+                                Row(
+                                  children: [
+                                    Flexible(
+                                      flex: 1,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(right: 5.0),
+                                        child: Container(
+                                          width: MediaQuery.of(context).size.width,
+                                          padding: EdgeInsets.only(left: 10.0),
+                                          decoration: BoxDecoration(
+                                            // //color: Colors.white,
+                                            // boxShadow: [
+                                            //   BoxShadow(
+                                            //       //color: Colors.black,
+                                            //   )
+                                            // ],
+                                            borderRadius: BorderRadius.circular(10),
+                                            border: Border.all(
+                                                color: Colors.black,
+                                                width: 1),
+                                          ),
+                                          child: DropdownButton<String>(
+                                            // Not necessary for Option 1
+                                            underline: SizedBox(),
+                                            hint: Padding(
+                                              padding: const EdgeInsets.all(5.0),
+                                              child: Text(
+                                                'Select division',
+                                                style: GoogleFonts.comfortaa(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                            ),
+                                            value: _selectedDivision,
+                                            isExpanded: true,
+                                            onChanged: (String? newValue) {
+                                              setState(() {
+                                                //hint = '';
+                                                _selectedDivision = newValue;
+                                                print(
+                                                    "Accoutn no: " + _selectedDivision.toString());
+                                              });
+                                            },
+                                            items: divisionList
+                                                .map<DropdownMenuItem<String>>((String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value,
+                                                    style: GoogleFonts.comfortaa(
+                                                      fontSize: 15,
+                                                      fontWeight: FontWeight.w700,
+                                                    )),
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Flexible(
+                                      flex: 1,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 5.0),
+                                        child: Container(
+                                          width: MediaQuery.of(context).size.width,
+                                          padding: EdgeInsets.only(left: 10.0),
+                                          decoration: BoxDecoration(
+                                            // //color: Colors.white,
+                                            // boxShadow: [
+                                            //   BoxShadow(
+                                            //       //color: Colors.black,
+                                            //   )
+                                            // ],
+                                            borderRadius: BorderRadius.circular(10),
+                                            border: Border.all(
+                                                color: Colors.black,
+                                                width: 1),
+                                          ),
+                                          child: DropdownButton<String>(
+                                            // Not necessary for Option 1
+                                            underline: SizedBox(),
+                                            hint: Padding(
+                                              padding: const EdgeInsets.all(5.0),
+                                              child: Text(
+                                                'Select district',
+                                                style: GoogleFonts.comfortaa(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                            ),
+                                            value: _selectedDistrict,
+                                            isExpanded: true,
+                                            onChanged: (String? newValue) {
+                                              setState(() {
+                                                //hint = '';
+                                                _selectedDistrict = newValue;
+                                                print(
+                                                    "Accoutn no: " + _selectedDistrict.toString());
+                                              });
+                                            },
+                                            items: districtList
+                                                .map<DropdownMenuItem<String>>((String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value,
+                                                    style: GoogleFonts.comfortaa(
+                                                      fontSize: 15,
+                                                      fontWeight: FontWeight.w700,
+                                                    )),
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 8,),
+                                Row(
+                                  children: [
+                                    Flexible(
+                                      flex: 1,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(right: 5.0),
+                                        child: Container(
+                                          width: MediaQuery.of(context).size.width,
+                                          padding: EdgeInsets.only(left: 10.0),
+                                          decoration: BoxDecoration(
+                                            // //color: Colors.white,
+                                            // boxShadow: [
+                                            //   BoxShadow(
+                                            //       //color: Colors.black,
+                                            //   )
+                                            // ],
+                                            borderRadius: BorderRadius.circular(10),
+                                            border: Border.all(
+                                                color: Colors.black,
+                                                width: 1),
+                                          ),
+                                          child: DropdownButton<String>(
+                                            // Not necessary for Option 1
+                                            underline: SizedBox(),
+                                            hint: Padding(
+                                              padding: const EdgeInsets.all(5.0),
+                                              child: Text(
+                                                'Select Thana',
+                                                style: GoogleFonts.comfortaa(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                            ),
+                                            value: _selectedThana,
+                                            isExpanded: true,
+                                            onChanged: (String? newValue) {
+                                              setState(() {
+                                                //hint = '';
+                                                _selectedThana = newValue;
+                                                print(
+                                                    "Accoutn no: " + _selectedThana.toString());
+                                              });
+                                            },
+                                            items: thanaList
+                                                .map<DropdownMenuItem<String>>((String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value,
+                                                    style: GoogleFonts.comfortaa(
+                                                      fontSize: 15,
+                                                      fontWeight: FontWeight.w700,
+                                                    )),
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Flexible(
+                                      flex: 1,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 5.0),
+                                        child: Container(
+                                          width: MediaQuery.of(context).size.width,
+                                          padding: EdgeInsets.only(left: 10.0),
+                                          decoration: BoxDecoration(
+                                            // //color: Colors.white,
+                                            // boxShadow: [
+                                            //   BoxShadow(
+                                            //       //color: Colors.black,
+                                            //   )
+                                            // ],
+                                            borderRadius: BorderRadius.circular(10),
+                                            border: Border.all(
+                                                color: Colors.black,
+                                                width: 1),
+                                          ),
+                                          child: DropdownButton<String>(
+                                            // Not necessary for Option 1
+                                            underline: SizedBox(),
+                                            hint: Padding(
+                                              padding: const EdgeInsets.all(5.0),
+                                              child: Text(
+                                                'Select Word',
+                                                style: GoogleFonts.comfortaa(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                            ),
+                                            value: _selectedWord,
+                                            isExpanded: true,
+                                            onChanged: (String? newValue) {
+                                              setState(() {
+                                                //hint = '';
+                                                _selectedWord = newValue;
+                                                print(
+                                                    "Accoutn no: " + _selectedWord.toString());
+                                              });
+                                            },
+                                            items: wordList
+                                                .map<DropdownMenuItem<String>>((String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value,
+                                                    style: GoogleFonts.comfortaa(
+                                                      fontSize: 15,
+                                                      fontWeight: FontWeight.w700,
+                                                    )),
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                Row(
+                                  children: [
+                                    Flexible(
+                                      flex: 1,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(right: 5.0),
+                                        child: TextField(
+                                          //        controller: lastNameController,
+                                          autofocus: false,
+                                          cursorColor: Colors.black45,
+                                          decoration: const InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            isDense: true,
+                                            prefixIcon: Icon(
+                                              Icons.person,
+                                              color: Colors.black45,
+                                            ),
+                                            labelText: "House no",
+                                            hintText: 'house no',
+                                          ),
+                                          // The validator receives the text that the user has entered.
+                                          // validator: (value) {
+                                          //   if (value == null || value.isEmpty) {
+                                          //     return 'Last name is required';
+                                          //   } else if (value.length > 25) {
+                                          //     return 'Maximum length is 25.';
+                                          //   }
+                                          //   return null;
+                                          // },
+                                        ),
+                                      ),
+                                    ),
+                                    Flexible(
+                                      flex: 1,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 5.0),
+                                        child: TextField(
+                                          //      controller: lastNameController,
+                                          autofocus: false,
+                                          cursorColor: Colors.black45,
+                                          decoration: const InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            isDense: true,
+                                            prefixIcon: Icon(
+                                              Icons.person,
+                                              color: Colors.black45,
+                                            ),
+                                            labelText: "Road no",
+                                            hintText: 'road no',
+                                          ),
+                                          // The validator receives the text that the user has entered.
+                                          // validator: (value) {
+                                          //   if (value == null || value.isEmpty) {
+                                          //     return 'Last name is required';
+                                          //   } else if (value.length > 25) {
+                                          //     return 'Maximum length is 25.';
+                                          //   }
+                                          //   return null;
+                                          // },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                Row(
+                                  children: [
+                                    Flexible(
+                                      flex: 1,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(right: 5.0),
+                                        child: TextField(
+                                          //  controller: lastNameController,
                                           autofocus: false,
                                           cursorColor: Colors.black45,
                                           decoration: const InputDecoration(
@@ -1264,6 +1841,43 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
 
                                 const SizedBox(height: 10),
+
+                                Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text("Nationality ?", style: GoogleFonts.comfortaa(fontSize: 15),)),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                                  child: Container(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Radio(
+                                          value: 0,
+                                          groupValue: nationality_val,
+                                          onChanged: _handleUserNationalityValueChange,
+                                          activeColor: new Color(0xFF29A74A),
+                                        ),
+                                        Text('Bangladeshi',
+                                            style: GoogleFonts.comfortaa(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w700,
+                                            )),
+                                        Radio(
+                                          value: 1,
+                                          groupValue: nationality_val,
+                                          onChanged: _handleUserNationalityValueChange,
+                                          activeColor: new Color(0xFF29A74A),
+                                        ),
+                                        Text('Foreigner',
+                                            style: GoogleFonts.comfortaa(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w700,
+                                            )),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+
                                 TextField(
                                   //controller: lastNameController,
                                   autofocus: false,
@@ -1374,6 +1988,62 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   // },
                                 ),
                                 const SizedBox(height: 10),
+                                Visibility(
+                                  visible: nationality_val == 0?true:false,
+                                  child: TextField(
+                                    //controller: lastNameController,
+                                    autofocus: false,
+                                    cursorColor: Colors.black45,
+                                    decoration: const InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      isDense: true,
+                                      prefixIcon: Icon(
+                                        Icons.person,
+                                        color: Colors.black45,
+                                      ),
+                                      labelText: "NID/Birth certificate",
+                                      hintText: 'Your NID no/ birth certificate no',
+                                    ),
+                                    // The validator receives the text that the user has entered.
+                                    // validator: (value) {
+                                    //   if (value == null || value.isEmpty) {
+                                    //     return 'Last name is required';
+                                    //   } else if (value.length > 25) {
+                                    //     return 'Maximum length is 25.';
+                                    //   }
+                                    //   return null;
+                                    // },
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                Visibility(
+                                  visible: nationality_val == 0?false:true,
+                                  child: TextField(
+                                    //controller: lastNameController,
+                                    autofocus: false,
+                                    cursorColor: Colors.black45,
+                                    decoration: const InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      isDense: true,
+                                      prefixIcon: Icon(
+                                        Icons.person,
+                                        color: Colors.black45,
+                                      ),
+                                      labelText: "Passport id",
+                                      hintText: 'your passport id',
+                                    ),
+                                    // The validator receives the text that the user has entered.
+                                    // validator: (value) {
+                                    //   if (value == null || value.isEmpty) {
+                                    //     return 'Last name is required';
+                                    //   } else if (value.length > 25) {
+                                    //     return 'Maximum length is 25.';
+                                    //   }
+                                    //   return null;
+                                    // },
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
                                 TextField(
                                   //controller: lastNameController,
                                   autofocus: false,
@@ -1385,8 +2055,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       Icons.person,
                                       color: Colors.black45,
                                     ),
-                                    labelText: "NID",
-                                    hintText: 'Your NID no',
+                                    labelText: "Bit Police no",
+                                    hintText: 'Area bit police number',
                                   ),
                                   // The validator receives the text that the user has entered.
                                   // validator: (value) {
@@ -1449,30 +2119,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   // },
                                 ),
                                 const SizedBox(height: 10),
-                                TextField(
-                                  //controller: lastNameController,
-                                  autofocus: false,
-                                  cursorColor: Colors.black45,
-                                  decoration: const InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    isDense: true,
-                                    prefixIcon: Icon(
-                                      Icons.person,
-                                      color: Colors.black45,
-                                    ),
-                                    labelText: "Passport id",
-                                    hintText: 'your passport id (optional)',
-                                  ),
-                                  // The validator receives the text that the user has entered.
-                                  // validator: (value) {
-                                  //   if (value == null || value.isEmpty) {
-                                  //     return 'Last name is required';
-                                  //   } else if (value.length > 25) {
-                                  //     return 'Maximum length is 25.';
-                                  //   }
-                                  //   return null;
-                                  // },
-                                ),
                                 // const SizedBox(height: 15),
                                 // DropdownButtonFormField(
                                 //   items: accountType.map((String item) {
@@ -1655,8 +2301,102 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 style: TextStyle(fontSize: 15),
                                               ),
                                             ),
+                                            Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Text("Nationality ?", style: GoogleFonts.comfortaa(fontSize: 15),)),
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                                              child: Container(
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  children: [
+                                                    Radio(
+                                                      value: 0,
+                                                      groupValue: familyNatonality_val,
+                                                      onChanged: _handleFamilyNationalityValueChange,
+                                                      activeColor: new Color(0xFF29A74A),
+                                                    ),
+                                                    Text('Bangladeshi',
+                                                        style: GoogleFonts.comfortaa(
+                                                          fontSize: 12,
+                                                          fontWeight: FontWeight.w700,
+                                                        )),
+                                                    Radio(
+                                                      value: 1,
+                                                      groupValue: familyNatonality_val,
+                                                      onChanged: _handleFamilyNationalityValueChange,
+                                                      activeColor: new Color(0xFF29A74A),
+                                                    ),
+                                                    Text('Foreigner',
+                                                        style: GoogleFonts.comfortaa(
+                                                          fontSize: 12,
+                                                          fontWeight: FontWeight.w700,
+                                                        )),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(height: 10,),
+                                            Visibility(
+                                              visible: nationality_val == 0?true:false,
+                                              child: TextField(
+                                                onChanged: (val)=>familyUser.nid = val,
+                                                //controller: lastNameController,
+                                                autofocus: false,
+                                                cursorColor: Colors.black45,
+                                                decoration: const InputDecoration(
+                                                  border: OutlineInputBorder(),
+                                                  isDense: true,
+                                                  prefixIcon: Icon(
+                                                    Icons.person,
+                                                    color: Colors.black45,
+                                                  ),
+                                                  labelText: "NID",
+                                                  hintText: 'member nid',
+                                                ),
+                                                // The validator receives the text that the user has entered.
+                                                // validator: (value) {
+                                                //   if (value == null || value.isEmpty) {
+                                                //     return 'Last name is required';
+                                                //   } else if (value.length > 25) {
+                                                //     return 'Maximum length is 25.';
+                                                //   }
+                                                //   return null;
+                                                // },
+                                              ),
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Visibility(
+                                              visible: nationality_val == 0?false:true,
+                                              child: TextField(
+                                                onChanged: (val)=>familyUser.passport = val,
+                                                //controller: lastNameController,
+                                                autofocus: false,
+                                                cursorColor: Colors.black45,
+                                                decoration: const InputDecoration(
+                                                  border: OutlineInputBorder(),
+                                                  isDense: true,
+                                                  prefixIcon: Icon(
+                                                    Icons.person,
+                                                    color: Colors.black45,
+                                                  ),
+                                                  labelText: "Passport",
+                                                  hintText: 'Family member Passport',
+                                                ),
+                                                // The validator receives the text that the user has entered.
+                                                // validator: (value) {
+                                                //   if (value == null || value.isEmpty) {
+                                                //     return 'Last name is required';
+                                                //   } else if (value.length > 25) {
+                                                //     return 'Maximum length is 25.';
+                                                //   }
+                                                //   return null;
+                                                // },
+                                              ),
+                                            ),
+                                            const SizedBox(height: 10),
                                             TextField(
-                                              onChanged: (val)=>user.name = val,
+                                              onChanged: (val)=>familyUser.name = val,
                                               //controller: lastNameController,
                                               autofocus: false,
                                               cursorColor: Colors.black45,
@@ -1682,7 +2422,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             ),
                                             const SizedBox(height: 10),
                                             TextField(
-                                              onChanged: (val)=>user.age = val,
+                                              onChanged: (val)=>familyUser.age = val,
                                               //controller: lastNameController,
                                               autofocus: false,
                                               cursorColor: Colors.black45,
@@ -1694,7 +2434,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   color: Colors.black45,
                                                 ),
                                                 labelText: "Age",
-                                                hintText: 'Member age',
+                                                hintText: 'provide the age',
                                               ),
                                               // The validator receives the text that the user has entered.
                                               // validator: (value) {
@@ -1708,7 +2448,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             ),
                                             const SizedBox(height: 10),
                                             TextField(
-                                              onChanged: (val)=>user.occupation = val,
+                                              onChanged: (val)=>familyUser.occupation = val,
                                               //controller: lastNameController,
                                               autofocus: false,
                                               cursorColor: Colors.black45,
@@ -1719,8 +2459,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   Icons.person,
                                                   color: Colors.black45,
                                                 ),
-                                                labelText: "Ocupation",
-                                                hintText: 'What he/she doing',
+                                                labelText: "Occupation",
+                                                hintText: 'What is he doing?',
                                               ),
                                               // The validator receives the text that the user has entered.
                                               // validator: (value) {
@@ -1734,7 +2474,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             ),
                                             const SizedBox(height: 10),
                                             TextField(
-                                              onChanged: (val)=>user.contact = val,
+                                              onChanged: (val)=>familyUser.religion = val,
+                                              //controller: lastNameController,
+                                              autofocus: false,
+                                              cursorColor: Colors.black45,
+                                              decoration: const InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                isDense: true,
+                                                prefixIcon: Icon(
+                                                  Icons.person,
+                                                  color: Colors.black45,
+                                                ),
+                                                labelText: "Religion",
+                                                hintText: 'What is his  religion?',
+                                              ),
+                                              // The validator receives the text that the user has entered.
+                                              // validator: (value) {
+                                              //   if (value == null || value.isEmpty) {
+                                              //     return 'Last name is required';
+                                              //   } else if (value.length > 25) {
+                                              //     return 'Maximum length is 25.';
+                                              //   }
+                                              //   return null;
+                                              // },
+                                            ),
+                                            const SizedBox(height: 10),
+                                            TextField(
+                                              onChanged: (val)=>familyUser.contact = val,
                                               //controller: lastNameController,
                                               autofocus: false,
                                               cursorColor: Colors.black45,
@@ -1808,7 +2574,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           onTap: (){
                                             numberOfFamily++;
                                             setState(() {
-                                              _addcollections(user);
+                                              _addcollections(familyUser);
                                             });
                                             //callDoctorLoginApi(mobileController.text, passwordController.text);
                                             //Navigator.push(context, MaterialPageRoute(builder: (context) => MobileVerificationScreen(generateOtp, mobileController.text.toString())));
@@ -1928,7 +2694,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   ),
                                                   const SizedBox(height: 10),
                                                   TextField(
-                                                    onChanged: (val)=>houseKeeper.area = val,
+                                                    onChanged: (val)=>houseKeeper.age = val,
                                                     //controller: lastNameController,
                                                     autofocus: false,
                                                     cursorColor: Colors.black45,
@@ -1939,8 +2705,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                         Icons.person,
                                                         color: Colors.black45,
                                                       ),
-                                                      labelText: "Area",
-                                                      hintText: 'house keeper area',
+                                                      labelText: "Age",
+                                                      hintText: 'house keeper Age',
+                                                    ),
+                                                    // The validator receives the text that the user has entered.
+                                                    // validator: (value) {
+                                                    //   if (value == null || value.isEmpty) {
+                                                    //     return 'Last name is required';
+                                                    //   } else if (value.length > 25) {
+                                                    //     return 'Maximum length is 25.';
+                                                    //   }
+                                                    //   return null;
+                                                    // },
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  TextField(
+                                                    onChanged: (val)=>houseKeeper.religion = val,
+                                                    //controller: lastNameController,
+                                                    autofocus: false,
+                                                    cursorColor: Colors.black45,
+                                                    decoration: const InputDecoration(
+                                                      border: OutlineInputBorder(),
+                                                      isDense: true,
+                                                      prefixIcon: Icon(
+                                                        Icons.person,
+                                                        color: Colors.black45,
+                                                      ),
+                                                      labelText: "Religion",
+                                                      hintText: 'House keeper religion',
                                                     ),
                                                     // The validator receives the text that the user has entered.
                                                     // validator: (value) {
@@ -1978,6 +2770,756 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                     //   return null;
                                                     // },
                                                   ),
+                                                  const SizedBox(height: 10),
+                                                  Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Text("present address ?", style: GoogleFonts.comfortaa(fontSize: 15),)),
+                                                  Divider(),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select division',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedDivision,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedDivision = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedDivision.toString());
+                                                                });
+                                                              },
+                                                              items: divisionList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select district',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedDistrict,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedDistrict = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedDistrict.toString());
+                                                                });
+                                                              },
+                                                              items: districtList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(height: 8,),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select Thana',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedThana,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedThana = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedThana.toString());
+                                                                });
+                                                              },
+                                                              items: thanaList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select Word',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedWord,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedWord = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedWord.toString());
+                                                                });
+                                                              },
+                                                              items: wordList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: TextField(
+                                                            //        controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "House no",
+                                                              hintText: 'house no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: TextField(
+                                                            //      controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Road no",
+                                                              hintText: 'road no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: TextField(
+                                                            //  controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Block no",
+                                                              hintText: 'Block no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: TextField(
+                                                            //controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Flat no",
+                                                              hintText: 'Flat no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+
+                                                  Divider(),
+
+                                                  SizedBox(height: 10),
+                                                  Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Text("parmanent address ?", style: GoogleFonts.comfortaa(fontSize: 15),)),
+                                                  Divider(),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select division',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedDivision,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedDivision = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedDivision.toString());
+                                                                });
+                                                              },
+                                                              items: divisionList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select district',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedDistrict,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedDistrict = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedDistrict.toString());
+                                                                });
+                                                              },
+                                                              items: districtList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(height: 8,),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select Thana',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedThana,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedThana = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedThana.toString());
+                                                                });
+                                                              },
+                                                              items: thanaList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select Word',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedWord,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedWord = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedWord.toString());
+                                                                });
+                                                              },
+                                                              items: wordList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: TextField(
+                                                            //        controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "House no",
+                                                              hintText: 'house no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: TextField(
+                                                            //      controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Road no",
+                                                              hintText: 'road no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: TextField(
+                                                            //  controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Block no",
+                                                              hintText: 'Block no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: TextField(
+                                                            //controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Flat no",
+                                                              hintText: 'Flat no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+
+                                                  Divider(),
+
                                                 ],
                                               )
                                           )
@@ -2133,8 +3675,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                         Icons.person,
                                                         color: Colors.black45,
                                                       ),
-                                                      labelText: "Age",
-                                                      hintText: 'Member age',
+                                                      labelText: "NID",
+                                                      hintText: 'house keeper nid',
                                                     ),
                                                     // The validator receives the text that the user has entered.
                                                     // validator: (value) {
@@ -2148,7 +3690,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   ),
                                                   const SizedBox(height: 10),
                                                   TextField(
-                                                    onChanged: (val)=>careTaker.area = val,
+                                                    onChanged: (val)=>careTaker.age = val,
                                                     //controller: lastNameController,
                                                     autofocus: false,
                                                     cursorColor: Colors.black45,
@@ -2159,8 +3701,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                         Icons.person,
                                                         color: Colors.black45,
                                                       ),
-                                                      labelText: "Ocupation",
-                                                      hintText: 'What he/she doing',
+                                                      labelText: "Age",
+                                                      hintText: 'Care Taker age',
+                                                    ),
+                                                    // The validator receives the text that the user has entered.
+                                                    // validator: (value) {
+                                                    //   if (value == null || value.isEmpty) {
+                                                    //     return 'Last name is required';
+                                                    //   } else if (value.length > 25) {
+                                                    //     return 'Maximum length is 25.';
+                                                    //   }
+                                                    //   return null;
+                                                    // },
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  TextField(
+                                                    onChanged: (val)=>careTaker.religion = val,
+                                                    //controller: lastNameController,
+                                                    autofocus: false,
+                                                    cursorColor: Colors.black45,
+                                                    decoration: const InputDecoration(
+                                                      border: OutlineInputBorder(),
+                                                      isDense: true,
+                                                      prefixIcon: Icon(
+                                                        Icons.person,
+                                                        color: Colors.black45,
+                                                      ),
+                                                      labelText: "Religion",
+                                                      hintText: 'Which religious you are',
                                                     ),
                                                     // The validator receives the text that the user has entered.
                                                     // validator: (value) {
@@ -2198,6 +3766,755 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                     //   return null;
                                                     // },
                                                   ),
+                                                  const SizedBox(height: 10),
+                                                  Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Text("present address ?", style: GoogleFonts.comfortaa(fontSize: 15),)),
+                                                  Divider(),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select division',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedDivision,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedDivision = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedDivision.toString());
+                                                                });
+                                                              },
+                                                              items: divisionList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select district',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedDistrict,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedDistrict = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedDistrict.toString());
+                                                                });
+                                                              },
+                                                              items: districtList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(height: 8,),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select Thana',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedThana,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedThana = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedThana.toString());
+                                                                });
+                                                              },
+                                                              items: thanaList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select Word',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedWord,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedWord = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedWord.toString());
+                                                                });
+                                                              },
+                                                              items: wordList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: TextField(
+                                                            //        controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "House no",
+                                                              hintText: 'house no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: TextField(
+                                                            //      controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Road no",
+                                                              hintText: 'road no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: TextField(
+                                                            //  controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Block no",
+                                                              hintText: 'Block no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: TextField(
+                                                            //controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Flat no",
+                                                              hintText: 'Flat no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+
+                                                  Divider(),
+
+                                                  SizedBox(height: 10),
+                                                  Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Text("parmanent address ?", style: GoogleFonts.comfortaa(fontSize: 15),)),
+                                                  Divider(),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select division',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedDivision,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedDivision = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedDivision.toString());
+                                                                });
+                                                              },
+                                                              items: divisionList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select district',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedDistrict,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedDistrict = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedDistrict.toString());
+                                                                });
+                                                              },
+                                                              items: districtList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(height: 8,),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select Thana',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedThana,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedThana = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedThana.toString());
+                                                                });
+                                                              },
+                                                              items: thanaList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select Word',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedWord,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedWord = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedWord.toString());
+                                                                });
+                                                              },
+                                                              items: wordList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: TextField(
+                                                            //        controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "House no",
+                                                              hintText: 'house no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: TextField(
+                                                            //      controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Road no",
+                                                              hintText: 'road no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: TextField(
+                                                            //  controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Block no",
+                                                              hintText: 'Block no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: TextField(
+                                                            //controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Flat no",
+                                                              hintText: 'Flat no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+
+                                                  Divider(),
                                                 ],
                                               )
                                           )
@@ -2282,7 +4599,2001 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ),
                       Step(
+                        state: currentStep > 4
+                            ? StepState.complete
+                            : StepState.indexed,
                         isActive: currentStep == 4 ? true : false,
+                        title: const Text(""),
+                        content: SingleChildScrollView(
+                          child: Form(
+                            key: _fifthFormKey,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Row(
+                                  children: const [
+                                    Text(
+                                      "Driver Information",
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 12),
+                                Form(
+                                    child: Column(
+                                      children: [
+                                        for(int m = 1 ; m <= numberOfDriver ; m++)
+                                          Container(
+                                              child:Column(
+                                                children: [
+                                                  Align(
+                                                    alignment: Alignment.centerLeft,
+                                                    child: Text(
+                                                      "SL: "+m.toString(),
+                                                      style: TextStyle(fontSize: 15),
+                                                    ),
+                                                  ),
+                                                  TextField(
+                                                    onChanged: (val)=>driver.name = val,
+                                                    //controller: lastNameController,
+                                                    autofocus: false,
+                                                    cursorColor: Colors.black45,
+                                                    decoration: const InputDecoration(
+                                                      border: OutlineInputBorder(),
+                                                      isDense: true,
+                                                      prefixIcon: Icon(
+                                                        Icons.person,
+                                                        color: Colors.black45,
+                                                      ),
+                                                      labelText: "Name",
+                                                      hintText: 'Member name',
+                                                    ),
+                                                    // The validator receives the text that the user has entered.
+                                                    // validator: (value) {
+                                                    //   if (value == null || value.isEmpty) {
+                                                    //     return 'Last name is required';
+                                                    //   } else if (value.length > 25) {
+                                                    //     return 'Maximum length is 25.';
+                                                    //   }
+                                                    //   return null;
+                                                    // },
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  TextField(
+                                                    onChanged: (val)=>driver.nid = val,
+                                                    //controller: lastNameController,
+                                                    autofocus: false,
+                                                    cursorColor: Colors.black45,
+                                                    decoration: const InputDecoration(
+                                                      border: OutlineInputBorder(),
+                                                      isDense: true,
+                                                      prefixIcon: Icon(
+                                                        Icons.person,
+                                                        color: Colors.black45,
+                                                      ),
+                                                      labelText: "NID",
+                                                      hintText: 'driver nid',
+                                                    ),
+                                                    // The validator receives the text that the user has entered.
+                                                    // validator: (value) {
+                                                    //   if (value == null || value.isEmpty) {
+                                                    //     return 'Last name is required';
+                                                    //   } else if (value.length > 25) {
+                                                    //     return 'Maximum length is 25.';
+                                                    //   }
+                                                    //   return null;
+                                                    // },
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  TextField(
+                                                    onChanged: (val)=>driver.age = val,
+                                                    //controller: lastNameController,
+                                                    autofocus: false,
+                                                    cursorColor: Colors.black45,
+                                                    decoration: const InputDecoration(
+                                                      border: OutlineInputBorder(),
+                                                      isDense: true,
+                                                      prefixIcon: Icon(
+                                                        Icons.person,
+                                                        color: Colors.black45,
+                                                      ),
+                                                      labelText: "Age",
+                                                      hintText: 'Driver age',
+                                                    ),
+                                                    // The validator receives the text that the user has entered.
+                                                    // validator: (value) {
+                                                    //   if (value == null || value.isEmpty) {
+                                                    //     return 'Last name is required';
+                                                    //   } else if (value.length > 25) {
+                                                    //     return 'Maximum length is 25.';
+                                                    //   }
+                                                    //   return null;
+                                                    // },
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  TextField(
+                                                    onChanged: (val)=>driver.religion = val,
+                                                    //controller: lastNameController,
+                                                    autofocus: false,
+                                                    cursorColor: Colors.black45,
+                                                    decoration: const InputDecoration(
+                                                      border: OutlineInputBorder(),
+                                                      isDense: true,
+                                                      prefixIcon: Icon(
+                                                        Icons.person,
+                                                        color: Colors.black45,
+                                                      ),
+                                                      labelText: "Religion",
+                                                      hintText: 'Which religious you are',
+                                                    ),
+                                                    // The validator receives the text that the user has entered.
+                                                    // validator: (value) {
+                                                    //   if (value == null || value.isEmpty) {
+                                                    //     return 'Last name is required';
+                                                    //   } else if (value.length > 25) {
+                                                    //     return 'Maximum length is 25.';
+                                                    //   }
+                                                    //   return null;
+                                                    // },
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  TextField(
+                                                    onChanged: (val)=>driver.contact = val,
+                                                    //controller: lastNameController,
+                                                    autofocus: false,
+                                                    cursorColor: Colors.black45,
+                                                    decoration: const InputDecoration(
+                                                      border: OutlineInputBorder(),
+                                                      isDense: true,
+                                                      prefixIcon: Icon(
+                                                        Icons.person,
+                                                        color: Colors.black45,
+                                                      ),
+                                                      labelText: "Contact",
+                                                      hintText: 'Mobile number',
+                                                    ),
+                                                    // The validator receives the text that the user has entered.
+                                                    // validator: (value) {
+                                                    //   if (value == null || value.isEmpty) {
+                                                    //     return 'Last name is required';
+                                                    //   } else if (value.length > 25) {
+                                                    //     return 'Maximum length is 25.';
+                                                    //   }
+                                                    //   return null;
+                                                    // },
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Text("present address ?", style: GoogleFonts.comfortaa(fontSize: 15),)),
+                                                  Divider(),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select division',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedDivision,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedDivision = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedDivision.toString());
+                                                                });
+                                                              },
+                                                              items: divisionList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select district',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedDistrict,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedDistrict = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedDistrict.toString());
+                                                                });
+                                                              },
+                                                              items: districtList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(height: 8,),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select Thana',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedThana,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedThana = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedThana.toString());
+                                                                });
+                                                              },
+                                                              items: thanaList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select Word',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedWord,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedWord = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedWord.toString());
+                                                                });
+                                                              },
+                                                              items: wordList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: TextField(
+                                                            //        controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "House no",
+                                                              hintText: 'house no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: TextField(
+                                                            //      controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Road no",
+                                                              hintText: 'road no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: TextField(
+                                                            //  controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Block no",
+                                                              hintText: 'Block no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: TextField(
+                                                            //controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Flat no",
+                                                              hintText: 'Flat no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+
+                                                  Divider(),
+
+                                                  SizedBox(height: 10),
+                                                  Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Text("parmanent address ?", style: GoogleFonts.comfortaa(fontSize: 15),)),
+                                                  Divider(),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select division',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedDivision,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedDivision = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedDivision.toString());
+                                                                });
+                                                              },
+                                                              items: divisionList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select district',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedDistrict,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedDistrict = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedDistrict.toString());
+                                                                });
+                                                              },
+                                                              items: districtList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(height: 8,),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select Thana',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedThana,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedThana = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedThana.toString());
+                                                                });
+                                                              },
+                                                              items: thanaList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select Word',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedWord,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedWord = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedWord.toString());
+                                                                });
+                                                              },
+                                                              items: wordList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: TextField(
+                                                            //        controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "House no",
+                                                              hintText: 'house no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: TextField(
+                                                            //      controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Road no",
+                                                              hintText: 'road no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: TextField(
+                                                            //  controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Block no",
+                                                              hintText: 'Block no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: TextField(
+                                                            //controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Flat no",
+                                                              hintText: 'Flat no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+
+                                                  Divider(),
+                                                ],
+                                              )
+                                          )
+                                      ],
+                                    )),
+                                Row(
+                                  children: [
+                                    Visibility(
+                                      visible: numberOfDriver == 1? false:true,
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Padding(
+                                          padding: EdgeInsets.only(left: 5.0),
+                                          child: InkWell(
+                                            onTap: (){
+                                              numberOfDriver !=1?numberOfDriver--:numberOfDriver =1;
+                                              setState(() {
+
+                                              });
+                                              //callDoctorLoginApi(mobileController.text, passwordController.text);
+                                              //Navigator.push(context, MaterialPageRoute(builder: (context) => MobileVerificationScreen(generateOtp, mobileController.text.toString())));
+                                            },
+                                            child: Card(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(12),
+                                              ),
+                                              child: Container(
+                                                width: 100,
+                                                height: 30,
+                                                decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(12),
+                                                    color: Colors.redAccent
+                                                ),
+                                                child: Center(
+                                                  child: Text("Remove", style: GoogleFonts.comfortaa(color: Colors.white,fontSize: 10),),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(left: 5.0),
+                                        child: InkWell(
+                                          onTap: (){
+                                            numberOfDriver++;
+                                            setState(() {
+                                              _addcollections4(careTaker);
+                                            });
+                                            //callDoctorLoginApi(mobileController.text, passwordController.text);
+                                            //Navigator.push(context, MaterialPageRoute(builder: (context) => MobileVerificationScreen(generateOtp, mobileController.text.toString())));
+                                          },
+                                          child: Card(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(12),
+                                            ),
+                                            child: Container(
+                                              width: 100,
+                                              height: 30,
+                                              decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(12),
+                                                  color: const Color(0xFF01A9B8)
+                                              ),
+                                              child: Center(
+                                                child: Text("Add more", style: GoogleFonts.comfortaa(color: Colors.white,fontSize: 10),),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
+                                const SizedBox(height: 20),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Step(
+                        state: currentStep > 5
+                            ? StepState.complete
+                            : StepState.indexed,
+                        isActive: currentStep == 5 ? true : false,
+                        title: const Text(""),
+                        content: SingleChildScrollView(
+                          child: Form(
+                            key: _sixthFormKey,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Row(
+                                  children: const [
+                                    Text(
+                                      "Home Tutor Information",
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 12),
+                                Form(
+                                    child: Column(
+                                      children: [
+                                        for(int m = 1 ; m <= numberOfDriver ; m++)
+                                          Container(
+                                              child:Column(
+                                                children: [
+                                                  Align(
+                                                    alignment: Alignment.centerLeft,
+                                                    child: Text(
+                                                      "SL: "+m.toString(),
+                                                      style: TextStyle(fontSize: 15),
+                                                    ),
+                                                  ),
+                                                  TextField(
+                                                    onChanged: (val)=>driver.name = val,
+                                                    //controller: lastNameController,
+                                                    autofocus: false,
+                                                    cursorColor: Colors.black45,
+                                                    decoration: const InputDecoration(
+                                                      border: OutlineInputBorder(),
+                                                      isDense: true,
+                                                      prefixIcon: Icon(
+                                                        Icons.person,
+                                                        color: Colors.black45,
+                                                      ),
+                                                      labelText: "Name",
+                                                      hintText: 'Member name',
+                                                    ),
+                                                    // The validator receives the text that the user has entered.
+                                                    // validator: (value) {
+                                                    //   if (value == null || value.isEmpty) {
+                                                    //     return 'Last name is required';
+                                                    //   } else if (value.length > 25) {
+                                                    //     return 'Maximum length is 25.';
+                                                    //   }
+                                                    //   return null;
+                                                    // },
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  TextField(
+                                                    onChanged: (val)=>driver.nid = val,
+                                                    //controller: lastNameController,
+                                                    autofocus: false,
+                                                    cursorColor: Colors.black45,
+                                                    decoration: const InputDecoration(
+                                                      border: OutlineInputBorder(),
+                                                      isDense: true,
+                                                      prefixIcon: Icon(
+                                                        Icons.person,
+                                                        color: Colors.black45,
+                                                      ),
+                                                      labelText: "NID",
+                                                      hintText: 'driver nid',
+                                                    ),
+                                                    // The validator receives the text that the user has entered.
+                                                    // validator: (value) {
+                                                    //   if (value == null || value.isEmpty) {
+                                                    //     return 'Last name is required';
+                                                    //   } else if (value.length > 25) {
+                                                    //     return 'Maximum length is 25.';
+                                                    //   }
+                                                    //   return null;
+                                                    // },
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  TextField(
+                                                    onChanged: (val)=>driver.age = val,
+                                                    //controller: lastNameController,
+                                                    autofocus: false,
+                                                    cursorColor: Colors.black45,
+                                                    decoration: const InputDecoration(
+                                                      border: OutlineInputBorder(),
+                                                      isDense: true,
+                                                      prefixIcon: Icon(
+                                                        Icons.person,
+                                                        color: Colors.black45,
+                                                      ),
+                                                      labelText: "Age",
+                                                      hintText: 'Driver age',
+                                                    ),
+                                                    // The validator receives the text that the user has entered.
+                                                    // validator: (value) {
+                                                    //   if (value == null || value.isEmpty) {
+                                                    //     return 'Last name is required';
+                                                    //   } else if (value.length > 25) {
+                                                    //     return 'Maximum length is 25.';
+                                                    //   }
+                                                    //   return null;
+                                                    // },
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  TextField(
+                                                    onChanged: (val)=>driver.religion = val,
+                                                    //controller: lastNameController,
+                                                    autofocus: false,
+                                                    cursorColor: Colors.black45,
+                                                    decoration: const InputDecoration(
+                                                      border: OutlineInputBorder(),
+                                                      isDense: true,
+                                                      prefixIcon: Icon(
+                                                        Icons.person,
+                                                        color: Colors.black45,
+                                                      ),
+                                                      labelText: "Religion",
+                                                      hintText: 'Which religious you are',
+                                                    ),
+                                                    // The validator receives the text that the user has entered.
+                                                    // validator: (value) {
+                                                    //   if (value == null || value.isEmpty) {
+                                                    //     return 'Last name is required';
+                                                    //   } else if (value.length > 25) {
+                                                    //     return 'Maximum length is 25.';
+                                                    //   }
+                                                    //   return null;
+                                                    // },
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  TextField(
+                                                    onChanged: (val)=>driver.contact = val,
+                                                    //controller: lastNameController,
+                                                    autofocus: false,
+                                                    cursorColor: Colors.black45,
+                                                    decoration: const InputDecoration(
+                                                      border: OutlineInputBorder(),
+                                                      isDense: true,
+                                                      prefixIcon: Icon(
+                                                        Icons.person,
+                                                        color: Colors.black45,
+                                                      ),
+                                                      labelText: "Contact",
+                                                      hintText: 'Mobile number',
+                                                    ),
+                                                    // The validator receives the text that the user has entered.
+                                                    // validator: (value) {
+                                                    //   if (value == null || value.isEmpty) {
+                                                    //     return 'Last name is required';
+                                                    //   } else if (value.length > 25) {
+                                                    //     return 'Maximum length is 25.';
+                                                    //   }
+                                                    //   return null;
+                                                    // },
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Text("present address ?", style: GoogleFonts.comfortaa(fontSize: 15),)),
+                                                  Divider(),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select division',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedDivision,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedDivision = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedDivision.toString());
+                                                                });
+                                                              },
+                                                              items: divisionList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select district',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedDistrict,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedDistrict = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedDistrict.toString());
+                                                                });
+                                                              },
+                                                              items: districtList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(height: 8,),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select Thana',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedThana,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedThana = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedThana.toString());
+                                                                });
+                                                              },
+                                                              items: thanaList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select Word',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedWord,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedWord = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedWord.toString());
+                                                                });
+                                                              },
+                                                              items: wordList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: TextField(
+                                                            //        controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "House no",
+                                                              hintText: 'house no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: TextField(
+                                                            //      controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Road no",
+                                                              hintText: 'road no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: TextField(
+                                                            //  controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Block no",
+                                                              hintText: 'Block no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: TextField(
+                                                            //controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Flat no",
+                                                              hintText: 'Flat no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+
+                                                  Divider(),
+
+                                                  SizedBox(height: 10),
+                                                  Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Text("parmanent address ?", style: GoogleFonts.comfortaa(fontSize: 15),)),
+                                                  Divider(),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select division',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedDivision,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedDivision = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedDivision.toString());
+                                                                });
+                                                              },
+                                                              items: divisionList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select district',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedDistrict,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedDistrict = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedDistrict.toString());
+                                                                });
+                                                              },
+                                                              items: districtList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(height: 8,),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select Thana',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedThana,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedThana = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedThana.toString());
+                                                                });
+                                                              },
+                                                              items: thanaList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(context).size.width,
+                                                            padding: EdgeInsets.only(left: 10.0),
+                                                            decoration: BoxDecoration(
+                                                              // //color: Colors.white,
+                                                              // boxShadow: [
+                                                              //   BoxShadow(
+                                                              //       //color: Colors.black,
+                                                              //   )
+                                                              // ],
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all(
+                                                                  color: Colors.black,
+                                                                  width: 1),
+                                                            ),
+                                                            child: DropdownButton<String>(
+                                                              // Not necessary for Option 1
+                                                              underline: SizedBox(),
+                                                              hint: Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Select Word',
+                                                                  style: GoogleFonts.comfortaa(
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w700,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              value: _selectedWord,
+                                                              isExpanded: true,
+                                                              onChanged: (String? newValue) {
+                                                                setState(() {
+                                                                  //hint = '';
+                                                                  _selectedWord = newValue;
+                                                                  print(
+                                                                      "Accoutn no: " + _selectedWord.toString());
+                                                                });
+                                                              },
+                                                              items: wordList
+                                                                  .map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<String>(
+                                                                  value: value,
+                                                                  child: Text(value,
+                                                                      style: GoogleFonts.comfortaa(
+                                                                        fontSize: 15,
+                                                                        fontWeight: FontWeight.w700,
+                                                                      )),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: TextField(
+                                                            //        controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "House no",
+                                                              hintText: 'house no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: TextField(
+                                                            //      controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Road no",
+                                                              hintText: 'road no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(right: 5.0),
+                                                          child: TextField(
+                                                            //  controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Block no",
+                                                              hintText: 'Block no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 5.0),
+                                                          child: TextField(
+                                                            //controller: lastNameController,
+                                                            autofocus: false,
+                                                            cursorColor: Colors.black45,
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              isDense: true,
+                                                              prefixIcon: Icon(
+                                                                Icons.person,
+                                                                color: Colors.black45,
+                                                              ),
+                                                              labelText: "Flat no",
+                                                              hintText: 'Flat no',
+                                                            ),
+                                                            // The validator receives the text that the user has entered.
+                                                            // validator: (value) {
+                                                            //   if (value == null || value.isEmpty) {
+                                                            //     return 'Last name is required';
+                                                            //   } else if (value.length > 25) {
+                                                            //     return 'Maximum length is 25.';
+                                                            //   }
+                                                            //   return null;
+                                                            // },
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+
+                                                  Divider(),
+                                                ],
+                                              )
+                                          )
+                                      ],
+                                    )),
+                                Row(
+                                  children: [
+                                    Visibility(
+                                      visible: numberOfDriver == 1? false:true,
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Padding(
+                                          padding: EdgeInsets.only(left: 5.0),
+                                          child: InkWell(
+                                            onTap: (){
+                                              numberOfDriver !=1?numberOfDriver--:numberOfDriver =1;
+                                              setState(() {
+
+                                              });
+                                              //callDoctorLoginApi(mobileController.text, passwordController.text);
+                                              //Navigator.push(context, MaterialPageRoute(builder: (context) => MobileVerificationScreen(generateOtp, mobileController.text.toString())));
+                                            },
+                                            child: Card(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(12),
+                                              ),
+                                              child: Container(
+                                                width: 100,
+                                                height: 30,
+                                                decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(12),
+                                                    color: Colors.redAccent
+                                                ),
+                                                child: Center(
+                                                  child: Text("Remove", style: GoogleFonts.comfortaa(color: Colors.white,fontSize: 10),),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(left: 5.0),
+                                        child: InkWell(
+                                          onTap: (){
+                                            numberOfDriver++;
+                                            setState(() {
+                                              _addcollections4(careTaker);
+                                            });
+                                            //callDoctorLoginApi(mobileController.text, passwordController.text);
+                                            //Navigator.push(context, MaterialPageRoute(builder: (context) => MobileVerificationScreen(generateOtp, mobileController.text.toString())));
+                                          },
+                                          child: Card(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(12),
+                                            ),
+                                            child: Container(
+                                              width: 100,
+                                              height: 30,
+                                              decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(12),
+                                                  color: const Color(0xFF01A9B8)
+                                              ),
+                                              child: Center(
+                                                child: Text("Add more", style: GoogleFonts.comfortaa(color: Colors.white,fontSize: 10),),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
+                                const SizedBox(height: 20),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Step(
+                        isActive: currentStep == 6 ? true : false,
                         title: const Text(""),
                         content: SingleChildScrollView(
                           child: Column(
@@ -2861,6 +7172,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
   }
 
+  void _handleUserNationalityValueChange(int? value) {
+    setState(() {
+      nationality_val = value!;
+      print('kDklcjlKCl '+ nationalityValue.toString());
+      switch (value) {
+        case 0:
+          nationalityValue = "Bangladeshi";
+          break;
+        case 1:
+          nationalityValue = "Foreigner";
+          break;
+      }
+    });
+  }
+  void _handleFamilyNationalityValueChange(int? value) {
+    setState(() {
+      familyNatonality_val = value!;
+      print('kDklcjlKCl '+ familyNatonalityValue.toString());
+      switch (value) {
+        case 0:
+          familyNatonalityValue = "Bangladeshi";
+          break;
+        case 1:
+          familyNatonalityValue = "Foreigner";
+          break;
+      }
+    });
+  }
+
   Future<DateTime?> pickDate() => showDatePicker(
     context: context,
     initialDate: DateTime.now(),
@@ -2868,10 +7208,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
     lastDate: DateTime(2050),
   );
 
-  void _addcollections(FamilyMember user) {
+  void _addcollections(FamilyMember familyUser) {
     setState(() {
-      familyMemberList.add(user);
-      this.user = new FamilyMember();
+      familyMemberList.add(familyUser);
+      this.familyUser = new FamilyMember();
     });
     print("member data: "+ familyMemberList.toList().toString());
 }
@@ -2886,6 +7226,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
     setState(() {
       careTakerList.add(careTaker);
       this.careTaker = new CareTaker();
+    });
+    print("member data: "+ careTakerList.toList().toString());
+  }
+
+  void _addcollections4(CareTaker careTaker) {
+    setState(() {
+      careTakerList.add(careTaker);
+      this.careTaker = new CareTaker();
+    });
+    print("member data: "+ careTakerList.toList().toString());
+  }
+  void _addcollections5(HomeTutor homeTutor) {
+    setState(() {
+      homeTutorList.add(homeTutor);
+      this.homeTutor = new HomeTutor();
     });
     print("member data: "+ careTakerList.toList().toString());
   }

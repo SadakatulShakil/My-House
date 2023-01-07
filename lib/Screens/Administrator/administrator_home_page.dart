@@ -134,16 +134,56 @@ class _HomePageState extends State<AdministratorHomePage> {
             ),
             Divider(height: 3.0),
             ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings', style: TextStyle(fontSize: 18)),
+              leading: Icon(Icons.open_with_rounded),
+              title: Text('House Owner information', style: TextStyle(fontSize: 15)),
               onTap: () {
                 // Here you can give your route to navigate
 
               },
             ),
             ListTile(
-              leading: Icon(Icons.close),
-              title: Text('Close Drawer', style: TextStyle(fontSize: 18)),
+              leading: Icon(Icons.open_with_rounded),
+              title: Text('Renter information', style: TextStyle(fontSize: 15)),
+              onTap: () {
+                // Here you can give your route to navigate
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.open_with_rounded),
+              title: Text('House-keeper information', style: TextStyle(fontSize: 15)),
+              onTap: () {
+                // Here you can give your route to navigate
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.open_with_rounded),
+              title: Text('Care-taker information', style: TextStyle(fontSize: 15)),
+              onTap: () {
+                // Here you can give your route to navigate
+
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.open_with_rounded),
+              title: Text('Driver information', style: TextStyle(fontSize: 15)),
+              onTap: () {
+                // Here you can give your route to navigate
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.open_with_rounded),
+              title: Text('Home tutor information', style: TextStyle(fontSize: 15)),
+              onTap: () {
+                // Here you can give your route to navigate
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('Log out', style: TextStyle(fontSize: 15)),
               onTap: () {
                 // Here you can give your route to navigate
                 Navigator.of(context).pop();

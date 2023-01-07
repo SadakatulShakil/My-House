@@ -1,12 +1,16 @@
 class HouseKeeper {
   String? name;
   String? nid;
+  String? age;
+  String? religion;
   String? area;
   String? contact;
 
   HouseKeeper({
     this.name,
     this.nid,
+    this.age,
+    this.religion,
     this.area,
     this.contact,
   });

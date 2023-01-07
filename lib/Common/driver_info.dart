@@ -1,4 +1,4 @@
-class CareTaker {
+class Driver {
   String? name;
   String? nid;
   String? age;
@@ -6,7 +6,7 @@ class CareTaker {
   String? area;
   String? contact;
 
-  CareTaker({
+  Driver({
     this.name,
     this.nid,
     this.age,
@@ -15,7 +15,7 @@ class CareTaker {
     this.contact,
   });
 
-  factory CareTaker.fromJson(Map<String, dynamic> json) => new CareTaker(
+  factory Driver.fromJson(Map<String, dynamic> json) => new Driver(
     name: json["name"],
     nid: json["nid"],
     age: json["age"],
@@ -27,6 +27,7 @@ class CareTaker {
   Map<String, dynamic> toJson() => {
     "name": name,
     "nid": nid,
+    "age": age,
     "age": age,
     "religion": religion,
     "area": area,
